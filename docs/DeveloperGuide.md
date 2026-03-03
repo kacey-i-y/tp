@@ -318,15 +318,38 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 ### Non-Functional Requirements
 
 1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-*{More to be added}*
+2.  Should be able to hold up to 1000 athletes without a noticeable sluggishness in performance for typical usage.
+3.  Should only be designed for a single user to run the application locally on their own OS.
+4.  User data should be stored locally in a human editable text file.
+5.  Should work without requiring an installer.
+6.  Should function fully offline and not depend on any remote server.
+7.  GUI should work well for standard screen resolutions 1920x1080 and higher and for screen scales 100% and 125%, and usable for resolutions 1280x720 and higher and for screen scales 150%.
+8.  Should be packageable into a single JAR file.
+9.  File size should not exceed 100MB.
+10. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+11. Should support keyboard-first usage with all major features being accessible without using the mouse.
+12. Should respond quickly for common commands (e.g. `addathlete`, `viewathlete`), completing within ~1s.
+13. Should not crash on invalid input and instead handle invalid commands by showing an error message and continuing normally.
+14. If saving fails, changes are not recorded and no partial or corrupted data file is produced.
+15. If the data file is corrupted or contains invalid entries, the app should fail gracefully (e.g., skip corrupted entries and continue running) and show a clear warning.
 
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact detail**: A contact detail that is not meant to be shared with others
+* **Private contact detail**: A contact detail that is not meant to be shared with others 
+* **Athlete**: A person whose profile and training records are managed in Pacebook 
+* **Coach**: The main user of Pacebook who manages athletes and tracks their progress 
+* **Athlete profile**: The stored set of an athlete’s personal details (e.g., name, age, phone, address, start date) 
+* **Training record**: A stored entry that captures details of an athlete’s training session or performance data over time 
+* **Performance metric**: A measurable value recorded to track an athlete’s progress (e.g., timing, distance, reps, notes) 
+* **Command**: A text instruction typed by the user to perform an action in the app (e.g., add, edit, delete) 
+* **Command box**: The input field where the user types commands to interact with Pacebook 
+* **CLI**: Command Line Interface, where the user controls the app by typing commands instead of using buttons/menus 
+* **GUI**: Graphical User Interface, where the user interacts with the app through visual components (panels, lists, buttons) 
+* **Athlete list**: The on-screen list showing all athletes currently stored in the app 
+* **Message display**: The area of the UI that shows feedback or results after a command is executed 
+* **Start date**: The date an athlete begins training under the coach, stored as part of the athlete’s profile 
+* **NFR**: Non-Functional Requirement, a requirement describing how the system should behave (e.g., performance, usability) rather than what features it provides
 
 --------------------------------------------------------------------------------------------------------------------
 
