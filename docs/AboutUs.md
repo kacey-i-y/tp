@@ -51,7 +51,7 @@ You can reach us at the email `cs2103t_w14_4@comp.nus.edu.sg`
 
 ### Kacey
 
-<img src="images/kacey.png" width="200px">
+<img src="images/kacey-i-y.png" width="200px">
 
 [[github](https://github.com/kacey)]
 
