@@ -318,10 +318,20 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 ### Non-Functional Requirements
 
 1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-*{More to be added}*
+2.  Should be able to hold up to 1000 athletes without a noticeable sluggishness in performance for typical usage.
+3.  Should only be designed for a single user to run the application locally on their own OS.
+4.  User data should be stored locally in a human editable text file.
+5.  Should work without requiring an installer.
+6.  Should function fully offline and not depend on any remote server.
+7.  GUI should work well for standard screen resolutions 1920x1080 and higher and for screen scales 100% and 125%, and usable for resolutions 1280x720 and higher and for screen scales 150%.
+8.  Should be packageable into a single JAR file.
+9.  File size should not exceed 100MB.
+10. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+11. Should support keyboard-first usage with all major features being accessible without using the mouse.
+12. Should respond quickly for common commands (e.g. `addathlete`, `viewathlete`), completing within ~1s.
+13. Should not crash on invalid input and instead handle invalid commands by showing an error message and continuing normally.
+14. If saving fails, changes are not recorded and no partial or corrupted data file is produced.
+15. If the data file is corrupted or contains invalid entries, the app should fail gracefully (e.g., skip corrupted entries and continue running) and show a clear warning.
 
 ### Glossary
 
