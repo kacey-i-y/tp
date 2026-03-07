@@ -23,7 +23,12 @@ public class ViewAthleteCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_VIEW_ATHLETE_SUCCESS = "Athlete Details:\n%1$s";
+    public static final String MESSAGE_VIEW_ATHLETE_SUCCESS = "Athlete Details:\n"
+            + "Name:    %1$s\n"
+            + "Phone:   %2$s\n"
+            + "Email:   %3$s\n"
+            + "Address: %4$s\n"
+            + "Tags:    %5$s";
 
     private final Index targetIndex;
 
@@ -41,7 +46,16 @@ public class ViewAthleteCommand extends Command {
         }
 
         Person athlete = lastShownList.get(targetIndex.getZeroBased());
-        return new CommandResult(String.format(MESSAGE_VIEW_ATHLETE_SUCCESS, Messages.format(athlete)));
+        String tags = athlete.getTags().stream()
+                .map(tag -> "[" + tag.tagName + "]")
+                .reduce("", (a, b) -> a + " " + b)
+                .strip();
+        return new CommandResult(String.format(MESSAGE_VIEW_ATHLETE_SUCCESS,
+                athlete.getName(),
+                athlete.getPhone(),
+                athlete.getEmail(),
+                athlete.getAddress(),
+                tags.isEmpty() ? "-" : tags));
     }
 
     @Override
