@@ -20,6 +20,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Remark;
 import seedu.address.model.person.StartDate;
 import seedu.address.model.tag.Tag;
 
@@ -34,6 +35,7 @@ public class AddCommandParser implements Parser<AddCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddCommand parse(String args) throws ParseException {
+
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AGE, PREFIX_PHONE,
                         PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_START_DATE, PREFIX_TAG);
@@ -41,27 +43,33 @@ public class AddCommandParser implements Parser<AddCommand> {
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_AGE, PREFIX_ADDRESS,
                 PREFIX_PHONE, PREFIX_EMAIL, PREFIX_START_DATE)
                 || !argMultimap.getPreamble().isEmpty()) {
+
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_AGE, PREFIX_PHONE,
-                PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_START_DATE);
+        argMultimap.verifyNoDuplicatePrefixesFor(
+                PREFIX_NAME, PREFIX_AGE, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_START_DATE
+        );
+
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Age age = ParserUtil.parseAge(argMultimap.getValue(PREFIX_AGE).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         StartDate startDate = ParserUtil.parseStartDate(argMultimap.getValue(PREFIX_START_DATE).get());
+
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Person person = new Person(name, age, phone, email, address, startDate, tagList);
+        // Default blank remark for new person
+        Remark remark = new Remark("");
+
+        Person person = new Person(name, age, phone, email, address, startDate, remark, tagList);
 
         return new AddCommand(person);
     }
 
     /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
+     * Returns true if none of the prefixes contains empty Optional values in the given ArgumentMultimap.
      */
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
