@@ -13,6 +13,7 @@ import seedu.address.logic.commands.AddTimingCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteAthleteCommand;
+import seedu.address.logic.commands.DeleteTimingCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
@@ -84,6 +85,9 @@ public class AddressBookParser {
 
         case AddTimingCommand.COMMAND_WORD:
             return new AddTimingCommandParser().parse(arguments);
+
+        case DeleteTimingCommand.COMMAND_WORD:
+            return new DeleteTimingCommandParser().parse(arguments);
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);

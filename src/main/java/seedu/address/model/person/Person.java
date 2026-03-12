@@ -167,6 +167,16 @@ public class Person {
     }
 
     /**
+     * Deletes and returns the run timing at the specified zero-based index.
+     *
+     * @param timingIndex Zero-based index of the timing to delete.
+     * @return the deleted {@link RunTiming}.
+     */
+    public RunTiming deleteRunTiming(int timingIndex) {
+        return runTimings.remove(timingIndex);
+    }
+
+    /**
      * Computes and returns the fastest run timing recorded for this athlete.
      *
      * @return the fastest timing in seconds.
