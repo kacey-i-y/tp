@@ -3,7 +3,7 @@ layout: page
 title: User Guide
 ---
 
-AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+Pacebook is a **desktop app for managing contacts, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
 
 * Table of Contents
 {:toc}
@@ -28,9 +28,9 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 
    * `list` : Lists all contacts.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
+   * `addathlete n/John Doe a/21 p/98765432 e/johnd@example.com a/John street, block 123, #01-01 d/01/01/2001` : Adds a contact named `John Doe` to the Address Book.
 
-   * `delete 3` : Deletes the 3rd contact shown in the current list.
+   * `deleteathlete 3` : Deletes the 3rd contact shown in the current list.
 
    * `clear` : Deletes all contacts.
 
@@ -73,19 +73,19 @@ Shows a message explaining how to access the help page.
 Format: `help`
 
 
-### Adding a person: `add`
+### Adding an athlete: `addathlete`
 
-Adds a person to the address book.
+Adds an athlete to the address book.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
+Format: `add n/NAME a/AGE p/PHONE_NUMBER e/EMAIL ad/ADDRESS d/START DATE [t/TAG]…​`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A person can have any number of tags (including 0)
 </div>
 
 Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/John Doe a/21 p/98765432 e/johnd@example.com ad/John street, block 123, #01-01 d/01/01/2001`
+* `add n/Betsy Crowe a/19 t/friend e/betsycrowe@example.com a/Newgate Street p/1234567 d/02/02/2002 t/professional`
 
 ### Listing all persons : `list`
 
@@ -97,9 +97,9 @@ Format: `list`
 
 Edits an existing person in the address book.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
+Format: `edit INDEX [n/NAME] [a/AGE] [p/PHONE] [e/EMAIL] [ad/ADDRESS] [d/START DATE] [t/TAG]…​`
 
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+* Edits the athlete at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
@@ -128,19 +128,62 @@ Examples:
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
-### Deleting a person : `delete`
+### Deleting an athlete : `deleteathlete`
 
 Deletes the specified person from the address book.
 
-Format: `delete INDEX`
+Format: `deleteathlete INDEX`
 
-* Deletes the person at the specified `INDEX`.
+* Deletes the athlete at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
 * `list` followed by `delete 2` deletes the 2nd person in the address book.
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+
+### Viewing an athlete profile and training records : viewathlete
+
+Displays the selected athlete’s profile information and training records.
+
+Format: `viewathlete INDEX`
+
+* Displays the athlete at the specified INDEX.
+* The index refers to the index number shown in the displayed athlete list.
+* The index must be a positive integer 1, 2, 3, …
+
+Examples:
+* `list` followed by `view 2` displays the 2nd person in the address book.
+* `find Betsy` followed by `view 1` displays the 1st person in the results of the `find` command.
+
+### Adding a timing record : addtiming
+
+Adds a timing record for an athlete for a specific running distance.
+
+Format: `addtiming INDEX dist/DISTANCE min/MINUTES sec/SECONDS`
+
+* Adds a timing record to the athlete at the specified INDEX. 
+* The index refers to the index number shown in the displayed athlete list. 
+* INDEX must be a positive integer 1, 2, 3, … 
+* Distance is recorded in kilometres, using up to 2 decimal places.
+
+Examples:
+* `list` followed by `addtiming 2 dist/2.4 min/10 sec/30` adds a training record to the 2nd person in the address book.
+* `find Betsy` followed by `addtiming 1 dist/0.2 min/0 sec/30` adds a training record to the 1st person in the results of the `find` command.
+
+### Deleting a timing record : deletetiming
+
+Deletes a specific timing record from an athlete profile.
+
+Format: `deletetiming ATHLETE_INDEX RECORD_INDEX`
+
+* Deletes the timing record at RECORD_INDEX for the athlete at ATHLETE_INDEX.
+* The index refers to the index number shown in the displayed athlete list.
+* INDEX must be a positive integer 1, 2, 3, …
+
+Examples:
+* `list`, followed by `viewathlete 2` and `deletetiming 2 2` deletes the 2nd training record from the 2nd person in the address book.
+* `find Betsy`, followed by `viewathlete 1` `deletetiming 1 2` deletes the 2nd training record from the 1st person in the results of the `find` command.
 
 ### Clearing all entries : `clear`
 
@@ -191,10 +234,13 @@ _Details coming soon ..._
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+**AddAthlete** | `addathlete n/NAME a/AGE p/PHONE_NUMBER e/EMAIL ad/ADDRESS d/START_DATE [t/TAG]…​` <br> e.g., `add n/James Ho a/30 p/82224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 d/03/03/2003 t/friend t/colleague`
+**AddTiming** | `addtiming INDEX dist/DISTANCE min/MINUTES sec/SECONDS`<br> e.g., `addtiming 2 dist/2.4 min/10 sec/30`
 **Clear** | `clear`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
+**DeleteAthlete** | `deleteathlete INDEX`<br> e.g., `delete 3`
+**DeleteTiming** | `deletetiming ATHLETE_INDEX RECORD_INDEX`<br> e.g., `deletetiming 2 2`
+**Edit** | `edit INDEX [n/NAME] [a/AGE] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [d/START DATE] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List** | `list`
 **Help** | `help`
+**ViewAthlete** | `viewathlete INDEX`<br> e.g., `view 3`
