@@ -3,8 +3,71 @@ layout: page
 title: User Guide
 ---
 
-AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+## Pacebook
 
+Pacebook is a **desktop application designed for running coaches to manage runners, training plans, and essential contact information efficiently**. It is optimized for use via a **Command Line Interface (CLI)**, enabling fast interaction while still providing a simple graphical interface.
+
+Unlike generic contact management tools, Pacebook is tailored specifically for **training environments**, where quick access to structured runner data is critical for planning and execution.
+
+---
+
+## Target Users
+
+Pacebook is designed primarily for:
+
+### Run Club Coaches
+- Coaches managing multiple runners within a team or club
+- Responsible for planning and monitoring training sessions
+- Require quick access to structured runner data
+
+---
+
+## Assumptions About Users
+
+Pacebook assumes that users:
+
+### Technical Assumptions
+- Have **basic computer literacy**
+- Are comfortable typing simple CLI commands (e.g. `add`, `edit`, `find`)
+- Do not require programming knowledge
+- Can understand structured input formats (e.g. `n/NAME`, `p/PHONE`)
+
+### Domain Assumptions
+Users are familiar with running-related training concepts, including:
+- Competition distances (e.g. 42km marathon)
+- Long run distances (e.g. 10km)
+- Interval training formats (e.g. 10 × 400m)
+
+### Usage Assumptions
+- Users prefer **efficiency and speed** over graphical-heavy systems
+- Users need to **quickly retrieve and update runner information**
+- Users manage **multiple runners simultaneously**
+- Users rely on structured data to **plan training sessions effectively**
+
+---
+
+## User Needs Addressed
+
+Pacebook is designed to support the following core needs:
+
+- Managing runners within a run club environment
+- Recording key training details such as:
+    - Competition distance (e.g. 42km)
+    - Long run (e.g. 10km)
+    - Interval training (e.g. 10 × 400m)
+- Sorting runners based on:
+    - Personal best
+    - Availability
+    - Club or team
+    - Alphabetical order
+- Adding and maintaining **emergency contact information**
+- Searching runners efficiently, including **partial keyword matching**
+- Updating runner details quickly using edit commands
+- Accessing available commands via a `help` function
+
+These features enable coaches to **plan training sessions more effectively, reduce administrative effort, and focus on improving runner performance**.
+
+---
 * Table of Contents
 {:toc}
 
