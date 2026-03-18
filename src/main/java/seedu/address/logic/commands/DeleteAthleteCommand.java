@@ -12,22 +12,23 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
 /**
- * Deletes a person identified using it's displayed index from the address book.
+ * Deletes an athlete profile identified using its displayed index.
  */
-public class DeleteCommand extends Command {
+public class DeleteAthleteCommand extends Command {
 
-    public static final String COMMAND_WORD = "delete";
+    public static final String COMMAND_WORD = "deleteathlete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the person identified by the index number used in the displayed person list.\n"
+            + ": Deletes the athlete profile identified by the index number used "
+            + "in the displayed athlete profile list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
+    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted athlete profile: %1$s";
 
     private final Index targetIndex;
 
-    public DeleteCommand(Index targetIndex) {
+    public DeleteAthleteCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -52,11 +53,11 @@ public class DeleteCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof DeleteCommand)) {
+        if (!(other instanceof DeleteAthleteCommand)) {
             return false;
         }
 
-        DeleteCommand otherDeleteCommand = (DeleteCommand) other;
+        DeleteAthleteCommand otherDeleteCommand = (DeleteAthleteCommand) other;
         return targetIndex.equals(otherDeleteCommand.targetIndex);
     }
 
