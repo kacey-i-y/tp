@@ -3,7 +3,12 @@ layout: page
 title: User Guide
 ---
 
-Pacebook is a **desktop app for managing contacts, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+## Pacebook
+
+At its core, Pacebook helps running coaches like you to manage your runners’ contacts effectively. But it's also much 
+more than that. It helps you keep track of runners’ data, such as their timings, training sessions, and emergency 
+contacts. It also allows you to find your athletes easily and monitor their improvements over time. So, whether you are 
+a private coach or training a professional running club, let Pacebook match your pace.
 
 * Table of Contents
 {:toc}
