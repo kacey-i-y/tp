@@ -320,6 +320,44 @@ Customized example:
 
 ---
 
+### Sorting athletes : `sort`
+
+Sorts the displayed athlete list by the specified field.
+
+Format: `sort by/FIELD [order/ORDER]`
+
+* Supported fields:
+    * `name`
+    * `pb`
+* Supported orders:
+    * `asc`
+    * `desc`
+* If `order/ORDER` is omitted, the default sort order is ascending.
+* Sorting is applied to the currently displayed athlete list.
+* For `pb`, athletes with no recorded timings will appear after athletes with recorded timings.
+
+Warnings:
+* `sort` only changes the display order of athletes. It does not modify any athlete data.
+* `pb` refers to the athlete’s personal best 2.4km timing based on recorded timing entries.
+* If no athletes are currently displayed, the command will have no visible effect.
+
+Expected output:
+* A success message confirming the field and order used for sorting.
+* The displayed athlete list is reordered accordingly.
+
+Examples:
+* `sort by/name`
+* `sort by/name order/desc`
+* `sort by/pb`
+* `sort by/pb order/desc`
+
+Customized example:
+* Before selecting runners for a fitness test review, type:
+    * `sort by/pb`
+      to see athletes ordered from fastest personal best to slowest.
+
+---
+
 ### Adding a timing record : `addtiming`
 
 Adds a 2.4km timing record to an athlete.
