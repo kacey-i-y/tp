@@ -157,29 +157,41 @@ public class ParserUtil {
         return tagSet;
     }
 
+    /**
+     * Parses a {@code String sortField} into a {@code SortField}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code sortField} is invalid.
+     */
     public static SortField parseBy(String sortField) throws ParseException {
         requireNonNull(sortField);
         String trimmedSortField = sortField.trim().toLowerCase();
         switch (trimmedSortField) {
-            case "name":
-                return SortCommand.SortField.NAME;
-            case "pb":
-                return SortCommand.SortField.PB;
-            default:
-                throw new ParseException(SortCommand.MESSAGE_USAGE);
+        case "name":
+            return SortCommand.SortField.NAME;
+        case "pb":
+            return SortCommand.SortField.PB;
+        default:
+            throw new ParseException(SortCommand.MESSAGE_USAGE);
         }
     }
 
+    /**
+     * Parses a {@code String sortOrder} into a {@code SortOrder}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code sortOrder} is invalid.
+     */
     public static SortOrder parseOrder(String sortOrder) throws ParseException {
         requireNonNull(sortOrder);
         String trimmedSortOrder = sortOrder.trim().toLowerCase();
         switch (trimmedSortOrder) {
-            case "asc":
-                return SortCommand.SortOrder.ASC;
-            case "desc":
-                return SortCommand.SortOrder.DESC;
-            default:
-                throw new ParseException(SortCommand.MESSAGE_USAGE);
+        case "asc":
+            return SortCommand.SortOrder.ASC;
+        case "desc":
+            return SortCommand.SortOrder.DESC;
+        default:
+            throw new ParseException(SortCommand.MESSAGE_USAGE);
         }
     }
 }

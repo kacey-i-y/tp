@@ -39,6 +39,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         resetData(toBeCopied);
     }
 
+    /**
+     * Sorts the person list using the specified comparator.
+     *
+     * @param comparator Comparator used to determine the order of persons in the list.
+     */
     public void sortPersonList(Comparator<Person> comparator) {
         requireNonNull(comparator);
         persons.sort(comparator);

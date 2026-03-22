@@ -80,6 +80,11 @@ public class UniquePersonList implements Iterable<Person> {
         }
     }
 
+    /**
+     * Sorts the list using the specified comparator.
+     *
+     * @param comparator Comparator used to determine the order of persons in the list.
+     */
     public void sort(Comparator<Person> comparator) {
         requireNonNull(comparator);
         internalList.sort(comparator);
