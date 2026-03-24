@@ -8,6 +8,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.control.SplitPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
@@ -48,7 +49,12 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane resultDisplayPlaceholder;
 
     @FXML
+    private SplitPane mainSplitPane;
+
+    @FXML
     private StackPane statusbarPlaceholder;
+
+    private static final double MAX_RESULT_DISPLAY_RATIO = 0.5;
 
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
@@ -121,6 +127,13 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        mainSplitPane.setDividerPositions(0.2);
+        mainSplitPane.getDividers().get(0).positionProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal.doubleValue() > MAX_RESULT_DISPLAY_RATIO) {
+                mainSplitPane.getDividers().get(0).setPosition(MAX_RESULT_DISPLAY_RATIO);
+            }
+        });
     }
 
     /**
