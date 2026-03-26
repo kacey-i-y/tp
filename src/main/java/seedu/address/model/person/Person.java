@@ -173,12 +173,9 @@ public class Person {
      *         {@code false} otherwise.
      */
     public boolean addRunTiming(RunTiming timing) {
+        double previousBest = getBestTimeForDistance(timing.getDistance());
         runTimings.add(timing);
-        double bestTime = getBestTime();
-        if (bestTime == timing.getTotalSeconds()) {
-            return true;
-        }
-        return false;
+        return timing.getTotalSeconds() < previousBest;
     }
 
     /**
@@ -192,14 +189,30 @@ public class Person {
     }
 
     /**
-     * Computes and returns the fastest run timing recorded for this athlete.
+     * Returns the fastest recorded timing for the given distance.
      *
-     * @return the fastest timing in seconds.
+     * @param distance Distance category.
+     * @return Fastest time in seconds, or {@code Double.MAX_VALUE} if none exists.
+     */
+    public double getBestTimeForDistance(String distance) {
+        double bestTime = Double.MAX_VALUE;
+        for (RunTiming time : runTimings) {
+            if (time.getDistance().equals(distance) && time.getTotalSeconds() < bestTime) {
+                bestTime = time.getTotalSeconds();
+            }
+        }
+        return bestTime;
+    }
+
+    /**
+     * Returns the fastest recorded timing across all stored run timings.
+     *
+     * @return Best time in seconds, or {@code Double.MAX_VALUE} if no timings exist.
      */
     public double getBestTime() {
         double bestTime = Double.MAX_VALUE;
         for (RunTiming time : runTimings) {
-            if (bestTime > time.getTotalSeconds()) {
+            if (time.getTotalSeconds() < bestTime) {
                 bestTime = time.getTotalSeconds();
             }
         }
