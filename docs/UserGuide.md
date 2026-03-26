@@ -235,9 +235,11 @@ Customized example:
 
 ---
 
-### Finding athletes by name : `find`
+### Finding athletes by name and/or tag and/or phone number: `find`
 
-Finds athletes whose names contain any of the given keywords.
+Finds all persons whose names contain any of
+the specified name keywords (case-insensitive), whose tags contain any of the specified tag keywords
+(case-insensitive), or whose phone numbers contain any of the specified phone numbers
 
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
