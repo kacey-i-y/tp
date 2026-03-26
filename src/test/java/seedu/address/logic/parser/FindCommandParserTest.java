@@ -19,15 +19,13 @@ public class FindCommandParserTest {
     @Test
     public void parse_emptyArg_throwsParseException() {
         assertThrows(ParseException.class,
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE),
-            () -> parser.parse("     "));
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE), () -> parser.parse("     "));
     }
 
     @Test
     public void parse_noRecognisedPrefix_throwsParseException() {
         assertThrows(ParseException.class,
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE),
-            () -> parser.parse("Alice Bob"));
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE), () -> parser.parse("Alice Bob"));
     }
 
     @Test
