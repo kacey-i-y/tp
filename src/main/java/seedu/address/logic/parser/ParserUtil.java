@@ -176,13 +176,18 @@ public class ParserUtil {
     /**
      * Parses {@code Collection<String> availableDays} into a {@code Set<AvailableDay>}.
      */
-    public static Set<AvailableDay> parseAvailableDays(Collection<String> availableDays) throws ParseException {
-        requireNonNull(availableDays);
-        final Set<AvailableDay> availableDaySet = new HashSet<>();
-        for (String day : availableDays) {
-            availableDaySet.add(parseAvailableDay(day));
+    public static Set<AvailableDay> parseAvailableDays(Collection<String> days) throws ParseException {
+        requireNonNull(days);
+        final Set<AvailableDay> availableDays = new HashSet<>();
+        for (String day : days) {
+            AvailableDay availableDay = parseAvailableDay(day);
+            if (availableDays.contains(availableDay)) {
+                throw new ParseException(AvailableDay.MESSAGE_DUPLICATE_AVAILABLE_DAYS);
+            }
+
+            availableDays.add(availableDay);
         }
-        return availableDaySet;
+        return availableDays;
     }
 
     /**

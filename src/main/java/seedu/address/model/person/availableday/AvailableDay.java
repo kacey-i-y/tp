@@ -13,6 +13,8 @@ public class AvailableDay {
 
     public static final String MESSAGE_CONSTRAINTS = "Day should be a valid day "
             + "(Mon, Tue, Wed, Thu, Fri, Sat, Sun)";
+    public static final String MESSAGE_DUPLICATE_AVAILABLE_DAYS =
+            "Available days should not contain duplicates.";
     private static final Set<String> VALID_DAYS = Set.of(
             "MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"
     );
@@ -27,7 +29,7 @@ public class AvailableDay {
     public AvailableDay(String availableDay) {
         requireNonNull(availableDay);
         checkArgument(isValidDay(availableDay), MESSAGE_CONSTRAINTS);
-        this.availableDay = availableDay;
+        this.availableDay = availableDay.toUpperCase();
     }
 
     /**
