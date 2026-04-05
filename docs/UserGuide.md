@@ -75,7 +75,7 @@ You do not need to know how to program — just install it once using the links 
 6. Type a command into the command box and press Enter to run it. For example, typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-  * `addathlete n/John Doe a/21 p/98765432 e/johnd@example.com ad/John street, block 123, #01-01 d/01/01/2001` : Adds an athlete named `John Doe` to Pacebook.
+  * `add n/John Doe a/21 p/98765432 e/johnd@example.com ad/John street, block 123, #01-01 d/01/01/2001` : Adds an athlete named `John Doe` to Pacebook.
 
   * `find n/Alex`: Finds an athlete named Alex.
 
@@ -163,15 +163,15 @@ These needs are built around the pace and demands of a real club coaching workfl
 * If you are using a PDF version of this guide, be careful when copying commands that span multiple lines, since some spaces around line breaks may be lost when pasting.
 </div>
 
-### Adding an athlete : `addathlete`
+### Adding an athlete : `add`
 
 Adds a new athlete to Pacebook.
 
-Format: `addathlete n/NAME a/AGE p/PHONE e/EMAIL ad/ADDRESS d/START_DATE [t/TAG]… [av/AVAILABLE_DAY]…​`
+Format: `add n/NAME a/AGE p/PHONE e/EMAIL ad/ADDRESS d/START_DATE [t/TAG]… [av/AVAILABLE_DAY]…​`
 
 Example:
 * A new sprinter joins your team A after the open trial session:
-  * `addathlete n/Sarah Tan a/24 p/91234567 e/sarah.tan@email.com 
+  * `add n/Sarah Tan a/24 p/91234567 e/sarah.tan@email.com 
       ad/Blk 12 Jurong West Ave 1, #05-12 d/01/04/2025 t/sprinter t/teamA`
 
 <div markdown="block" class="alert alert-primary">:bulb: **Tips:**
@@ -300,7 +300,7 @@ Use `list` before commands like `viewathlete`, `edit`, and `deleteathlete` if yo
 
 Sorts the displayed athlete list by the specified field.
 
-Format: `sort by/FIELD [order/ORDER]`
+Format: `sort by/FIELD [ord/ORDER]`
 
 Examples:
 * Before selecting runners for the inter-club competition, rank the
@@ -311,7 +311,7 @@ Examples:
   * `find t/teamA`
   * `sort by/name`
 * Identify who needs the most improvement before the next fitness test:
-  * `sort by/pb order/desc`
+  * `sort by/pb ord/desc`
 
 <div markdown="block" class="alert alert-primary">:bulb: **Tips:**
 
@@ -341,24 +341,24 @@ Examples:
 
 ---
 
-### Viewing an athlete profile and training records : `viewathlete`
+### Viewing an athlete profile and training records : `view`
 
 Displays an athlete’s profile and their training records.
 
-Format: `viewathlete INDEX`
+Format: `view INDEX`
 * Displays the athlete at the specified `INDEX`.
 
 Example:
 * Before setting Marcus's target pace for the upcoming 10km race,
   review his full timing history:
   * `find n/Marcus Lim`
-  * `viewathlete 1`
+  * `view 1`
 
 <div markdown="block" class="alert alert-primary">:bulb: **Tips:**
 
 * The INDEX refers to the index number shown in the displayed athlete list.
 * The INDEX must be a positive number: `1, 2, 3, …`
-* Use `viewathlete` after `find` to quickly inspect one athlete without scrolling through the full list.
+* Use `view` after `find` to quickly inspect one athlete without scrolling through the full list.
 </div>
 
 <div markdown="block" class="alert alert-success">:white_check_mark: **Expected output:**
@@ -369,17 +369,17 @@ Example:
 
 ---
 
-### Adding a timing record : `addtiming`
+### Adding a timing record : `addtime`
 
 Adds a timing record to an athlete.
 
-Format: `addtiming INDEX dist/DISTANCE min/MINUTES sec/SECONDS`
+Format: `addtime INDEX dist/DISTANCE min/MINUTES sec/SECONDS`
 * Adds a timing record to the athlete at the specified `INDEX`.
 
 Examples:
 * After today's 2.4km fitness test, log Sarah's result:
   * `find n/Sarah Tan`
-  * `addtiming 1 dist/2.4km min/11 sec/42`
+  * `addtime 1 dist/2.4km min/11 sec/42`
 
 <div markdown="block" class="alert alert-primary">:bulb: **Tips:**
 
@@ -409,17 +409,17 @@ Examples:
 
 ---
 
-### Deleting an athlete : `deleteathlete`
+### Deleting an athlete : `del`
 
 Deletes an athlete from Pacebook.
 
-Format: `deleteathlete INDEX`
+Format: `del INDEX`
 * Deletes the athlete at the specified `INDEX`.
 
 Example:
 * A runner has moved overseas and officially left the club:
   * `find n/Jake Wong`
-  * `deleteathlete 1`
+  * `del 1`
 
 <div markdown="block" class="alert alert-primary">:bulb: **Tips:**
 
@@ -440,19 +440,19 @@ A success message confirming which athlete was deleted.
 
 ---
 
-### Deleting a timing record : `deletetiming`
+### Deleting a timing record : `deltime`
 
 Deletes a timing record from an athlete’s profile.
 
-Format: `deletetiming ATHLETE_INDEX RECORD_INDEX`
+Format: `deltime ATHLETE_INDEX RECORD_INDEX`
 * Deletes the timing record at `RECORD_INDEX` for the athlete at `ATHLETE_INDEX`.
 
 Example:
 * You accidentally logged Marcus's timing under Sarah's profile
   during the fitness test:
   * `find n/Sarah Tan`
-  * `viewathlete 1`
-  * `deletetiming 1 1`
+  * `view 1`
+  * `deltime 1 1`
 
 <div markdown="block" class="alert alert-primary">:bulb: **Tips:**
 
@@ -463,7 +463,7 @@ Example:
 
 <div markdown="block" class="alert alert-warning">:exclamation: **Caution:**
 
-* Make sure you check the athlete profile with `viewathlete` first so that you delete the correct timing record.
+* Make sure you check the athlete profile with `view` first so that you delete the correct timing record.
 * Deleting a timing record may affect the athlete’s visible performance history.
 </div>
 
@@ -493,7 +493,7 @@ Example:
 
 <div markdown="block" class="alert alert-primary">:bulb: **Tips:**
 
-* Avoid using `clear` if you only want to remove one athlete. Use `deleteathlete` instead.
+* Avoid using `clear` if you only want to remove one athlete. Use `del` instead.
 </div>
 
 <div markdown="block" class="alert alert-success">:white_check_mark: **Expected output:**
@@ -582,17 +582,17 @@ Furthermore, certain edits can cause Pacebook to behave in unexpected ways if va
 
 ## Command summary
 
-| Action            | Format, Examples                                                                                                                                                                                                                              |
-|-------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **AddAthlete**    | `addathlete n/NAME a/AGE p/PHONE e/EMAIL ad/ADDRESS d/START_DATE [t/TAG]… [av/AVAILABLE_DAY]…​` <br> e.g., `addathlete n/Sarah Tan a/24 p/91234567 e/sarah.tan@email.com ad/Blk 12 Jurong West Ave 1, #05-12 d/01/04/2025 t/sprinter t/teamA` |
-| **Edit**          | `edit INDEX [n/NAME] [a/AGE] [p/PHONE] [e/EMAIL] [ad/ADDRESS] [d/START_DATE] [t/TAG]… [av/AVAILABLE_DAY]…​`<br> e.g., `edit 1 n/Marcus Lim e/marcus@email.com`                                                                                |
-| **Find**          | `find [n/NAME] [p/PHONE] [t/TAG] [av/AVAILABLE_DAY]`<br> e.g., `find n/Sarah t/sprinter`                                                                                                                                                      |
-| **List**          | `list`                                                                                                                                                                                                                                        |
-| **Sort**          | `sort by/FIELD [order/ORDER]` <br> e.g., `sort by/pb order/desc`                                                                                                                                                                              |
-| **ViewAthlete**   | `viewathlete INDEX`<br> e.g., `viewathlete 3`                                                                                                                                                                                                 |
-| **AddTiming**     | `addtiming INDEX dist/DISTANCE min/MINUTES sec/SECONDS`<br> e.g., `addtiming 2 dist/400m min/10 sec/30`                                                                                                                                       |
-| **DeleteAthlete** | `deleteathlete INDEX`<br> e.g., `deleteathlete 3`                                                                                                                                                                                             |
-| **DeleteTiming**  | `deletetiming ATHLETE_INDEX RECORD_INDEX`<br> e.g., `deletetiming 2 2`                                                                                                                                                                        |
-| **Clear**         | `clear`                                                                                                                                                                                                                                       |
-| **Help**          | `help`                                                                                                                                                                                                                                        |
-| **Exit**          | `exit`                                                                                                                                                                                                                                        |
+| Action             | Format, Examples                                                                                                                                                                                                                       |
+|--------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add Athlete**    | `add n/NAME a/AGE p/PHONE e/EMAIL ad/ADDRESS d/START_DATE [t/TAG]… [av/AVAILABLE_DAY]…​` <br> e.g., `addathlete n/Sarah Tan a/24 p/91234567 e/sarah.tan@email.com ad/Blk 12 Jurong West Ave 1, #05-12 d/01/04/2025 t/sprinter t/teamA` |
+| **Edit**           | `edit INDEX [n/NAME] [a/AGE] [p/PHONE] [e/EMAIL] [ad/ADDRESS] [d/START_DATE] [t/TAG]… [av/AVAILABLE_DAY]…​`<br> e.g., `edit 1 n/Marcus Lim e/marcus@email.com`                                                                         |
+| **Find**           | `find [n/NAME] [p/PHONE] [t/TAG] [av/AVAILABLE_DAY]`<br> e.g., `find n/Sarah t/sprinter`                                                                                                                                               |
+| **List**           | `list`                                                                                                                                                                                                                                 |
+| **Sort**           | `sort by/FIELD [ord/ORDER]` <br> e.g., `sort by/pb order/desc`                                                                                                                                                                         |
+| **View Athlete**   | `view INDEX`<br> e.g., `view 3`                                                                                                                                                                                                        |
+| **Add Timing**     | `addtime INDEX dist/DISTANCE min/MINUTES sec/SECONDS`<br> e.g., `addtime 2 dist/400m min/10 sec/30`                                                                                                                                    |
+| **Delete Athlete** | `del INDEX`<br> e.g., `deleteathlete 3`                                                                                                                                                                                                |
+| **Delete Timing**  | `deltime ATHLETE_INDEX RECORD_INDEX`<br> e.g., `deltime 2 2`                                                                                                                                                                           |
+| **Clear**          | `clear`                                                                                                                                                                                                                                |
+| **Help**           | `help`                                                                                                                                                                                                                                 |
+| **Exit**           | `exit`                                                                                                                                                                                                                                 |

@@ -17,7 +17,7 @@ import seedu.address.model.person.RunTiming;
  */
 public class ViewAthleteCommand extends Command {
 
-    public static final String COMMAND_WORD = "viewathlete";
+    public static final String COMMAND_WORD = "view";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Views the athlete identified by the index number used in the displayed person list.\n"

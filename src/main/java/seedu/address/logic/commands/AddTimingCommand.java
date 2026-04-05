@@ -27,7 +27,7 @@ import seedu.address.model.person.RunTiming;
 public class AddTimingCommand extends Command {
 
     /** Command word used to invoke this command. */
-    public static final String COMMAND_WORD = "addtiming";
+    public static final String COMMAND_WORD = "addtime";
 
     /** Usage instructions for this command. */
     public static final String MESSAGE_USAGE = COMMAND_WORD
