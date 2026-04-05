@@ -95,13 +95,13 @@ The sequence diagram below illustrates the interactions within the `Logic` compo
 
 ![Interactions Inside the Logic Component for the `delete 1` Command](images/DeleteSequenceDiagram.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of diagram.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteAthleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of diagram.
 </div>
 
 How the `Logic` component works:
 
 1. When `Logic` is called upon to execute a command, it is passed to an `AddressBookParser` object which in turn creates a parser that matches the command (e.g., `DeleteCommandParser`) and uses it to parse the command.
-1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCommand`) which is executed by the `LogicManager`.
+1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteAthleteCommand`) which is executed by the `LogicManager`.
 1. The command can communicate with the `Model` when it is executed (e.g. to delete a person).<br>
    Note that although this is shown as a single step in the diagram above (for simplicity), in the code it can take several interactions (between the command object and the `Model`) to achieve.
 1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
@@ -111,8 +111,8 @@ Here are the other classes in `Logic` (omitted from the class diagram above) tha
 <img src="images/ParserClasses.png" width="600"/>
 
 How the parsing works:
-* When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
-* All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
+* When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddAthleteCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
+* All `XYZCommandParser` classes (e.g., `AddAthleteCommandParser`, `DeleteAthleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
 ### Model component
 **API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
@@ -227,7 +227,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 * **Alternative 2:** Individual command knows how to undo/redo by
   itself.
-  * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+  * Pros: Will use less memory (e.g. for `del`, just save the person being deleted).
   * Cons: We must ensure that the implementation of each individual command are correct.
 
 _{more aspects and alternatives to be added}_
@@ -314,7 +314,7 @@ Actor: Coach
 
 MSS:
 
-1. Coach inputs details of athlete to be added: `addathlete n/John Tan a/17 p/91234567 ad/NUS Hall d/02-10-2026`
+1. Coach inputs details of athlete to be added: `add n/John Tan a/17 p/91234567 ad/NUS Hall d/02-10-2026`
 2. Pacebook validates all fields (name, age, phone, address, start date) and checks that the phone number is unique.
 3. Pacebook saves the athlete profile to the data file.
 4. Pacebook displays success message with added athlete details in the message box: Added athlete: John Tan (Age: 17, Phone: 91234567, Address: NUS Hall, Start: 02-10-2026)
@@ -343,7 +343,7 @@ Actor: Coach
 
 MSS:
 
-1. Coach inputs the athlete index to view: `viewathlete 1`
+1. Coach inputs the athlete index to view: `view 1`
 2. Pacebook retrieves the athlete profile corresponding to the index.
 3. Pacebook displays the athlete's profile (name, age, phone, address, start date) in the message box.
 4. Pacebook displays personal bests by distance (best time + date), or shows "No training records yet" if there are none.
@@ -390,7 +390,7 @@ Actor: Coach
 
 MSS:
 
-1. Coach inputs the athlete to be deleted: `deleteathlete 2`
+1. Coach inputs the athlete to be deleted: `del 2`
 2. Pacebook validates the index exists.
 3. Pacebook removes the athlete profile and all associated timing records.
 4. Pacebook saves the updated data file.
@@ -416,7 +416,7 @@ MSS:
 
 1. Coach uses the viewathlete command to review the athlete's full training history before removal: `viewathlete 2`
 2. Pacebook displays the athlete's full profile and training history.
-3. Coach uses the deleteathlete command to remove the profile: `deleteathlete 2`
+3. Coach uses the deleteathlete command to remove the profile: `del 2`
 4. Pacebook removes the athlete from the active squad list.
 5. Pacebook displays success message and deleted athlete's details in the message box.
 6. Updated athlete list is now visible in the main window.
@@ -444,7 +444,7 @@ Actor: Coach
 
 MSS:
 
-1. Coach inputs athlete index, distance, minutes, and seconds: `addtiming 1 dist/2.4 min/10 sec/30`
+1. Coach inputs athlete index, distance, minutes, and seconds: `addtime 1 dist/2.4km min/10 sec/30`
 2. Pacebook validates the index exists, the distance is valid, minutes/seconds are valid, and total time > 0.
 3. Pacebook adds the timing record to the athlete's profile.
 4. Pacebook updates the athlete's personal best for that distance if the new timing is the best.
@@ -468,7 +468,7 @@ Actor: Coach
 
 MSS:
 
-1. Coach inputs the athlete index and timing record index to be deleted: `deletetiming 1 3`
+1. Coach inputs the athlete index and timing record index to be deleted: `deltime 1 3`
 2. Pacebook validates the athlete index exists and the timing record index exists for that athlete.
 3. Pacebook deletes the selected timing record.
 4. Pacebook recalculates the personal best for that distance if the deleted record affected it.
@@ -499,7 +499,7 @@ Extensions:
 9.  File size should not exceed 100MB.
 10. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 11. Should support keyboard-first usage with all major features being accessible without using the mouse.
-12. Should respond quickly for common commands (e.g. `addathlete`, `viewathlete`), completing within ~1s.
+12. Should respond quickly for common commands (e.g. `add`, `view`), completing within ~1s.
 13. Should not crash on invalid input and instead handle invalid commands by showing an error message and continuing normally.
 14. If saving fails, changes are not recorded and no partial or corrupted data file is produced.
 15. If the data file is corrupted or contains invalid entries, the app should fail gracefully (e.g., skip corrupted entries and continue running) and show a clear warning.
@@ -560,13 +560,13 @@ testers are expected to do more *exploratory* testing.
 
    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
-   1. Test case: `delete 1`<br>
+   1. Test case: `del 1`<br>
       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 
-   1. Test case: `delete 0`<br>
+   1. Test case: `del 0`<br>
       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+   1. Other incorrect delete commands to try: `del`, `del x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
 1. _{ more test cases …​ }_
