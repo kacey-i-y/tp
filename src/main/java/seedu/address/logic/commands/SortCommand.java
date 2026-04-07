@@ -15,17 +15,17 @@ import seedu.address.model.person.Person;
 public class SortCommand extends Command {
     public static final String COMMAND_WORD = "sort";
 
-    static final String PB_SORT_DISTANCE = "2.4km";
-
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Sorts the displayed athlete list by the specified field.\n"
             + "Parameters: by/FIELD [order/ORDER]\n"
             + "Supported fields: name, pb\n"
-            + "For pb sorting, personal best refers to the " + PB_SORT_DISTANCE + " timing.\n"
+            + "For pb sorting, personal best refers to the 2.4km timing.\n"
             + "Supported orders: asc, desc\n"
             + "Example: " + COMMAND_WORD + " by/name order/asc";
 
     public static final String MESSAGE_SUCCESS = "Sorted athletes by %s in %s order.";
+
+    private static final String PB_SORT_DISTANCE = "2.4km";
 
     private final SortField sortField;
     private final SortOrder sortOrder;
