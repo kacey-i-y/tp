@@ -325,19 +325,19 @@ Examples:
 
 * Supported fields:
   * `name`
-  * `pb` (personal best run timing)
+  * `pb` (personal best 2.4km timing)
 * Supported orders:
   * `asc` (ascending)
   * `desc` (descending)
 * If `order/ORDER` is omitted, the default sort order is ascending.
 * Sorting is applied to the currently displayed athlete list.
-* For `pb`, athletes with no recorded timings will appear after athletes with recorded timings.
+* For `pb`, athletes with no recorded `2.4km` timings will appear after athletes with recorded `2.4km` timings.
 </div>
 
 <div markdown="block" class="alert alert-warning">:exclamation: **Caution:**
 
 * `sort` only changes the display order of athletes. It does not modify any athlete data.
-* `pb` refers to the athlete’s personal best across all recorded distances.
+* `pb` refers only to the athlete’s personal best for `2.4km`.
 * If no athletes are currently displayed, the command will have no visible effect.
 </div>
 

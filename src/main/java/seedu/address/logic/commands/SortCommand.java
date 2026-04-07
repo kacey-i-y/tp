@@ -13,6 +13,7 @@ import seedu.address.model.person.Person;
  * Sorts the displayed athlete list by the specified field and order.
  */
 public class SortCommand extends Command {
+    static final String PB_SORT_DISTANCE = "2.4km";
 
     public static final String COMMAND_WORD = "sort";
 
@@ -20,6 +21,7 @@ public class SortCommand extends Command {
             + ": Sorts the displayed athlete list by the specified field.\n"
             + "Parameters: by/FIELD [order/ORDER]\n"
             + "Supported fields: name, pb\n"
+            + "For pb sorting, personal best refers to the " + PB_SORT_DISTANCE + " timing.\n"
             + "Supported orders: asc, desc\n"
             + "Example: " + COMMAND_WORD + " by/name order/asc";
 
@@ -65,17 +67,25 @@ public class SortCommand extends Command {
         case PB:
             if (sortOrder == SortOrder.ASC) {
                 return Comparator
-                        .comparing((Person person) -> !person.hasRunTimings())
-                        .thenComparingDouble(Person::getBestTime);
+                        .comparing((Person person) -> !hasTimingForPbSortDistance(person))
+                        .thenComparingDouble(this::getPbSortTime);
             } else {
                 return Comparator
-                        .comparing((Person person) -> !person.hasRunTimings())
-                        .thenComparing(Comparator.comparingDouble(Person::getBestTime).reversed());
+                        .comparing((Person person) -> !hasTimingForPbSortDistance(person))
+                        .thenComparing(Comparator.comparingDouble(this::getPbSortTime).reversed());
             }
 
         default:
             throw new CommandException("Unsupported sort field: " + sortField);
         }
+    }
+
+    private boolean hasTimingForPbSortDistance(Person person) {
+        return getPbSortTime(person) != Double.MAX_VALUE;
+    }
+
+    private double getPbSortTime(Person person) {
+        return person.getBestTimeForDistance(PB_SORT_DISTANCE);
     }
 
     @Override
