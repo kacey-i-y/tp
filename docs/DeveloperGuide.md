@@ -113,6 +113,7 @@ Here are the other classes in `Logic` (omitted from the class diagram above) tha
 How the parsing works:
 * When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddAthleteCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
 * All `XYZCommandParser` classes (e.g., `AddAthleteCommandParser`, `DeleteAthleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
+* FindCommandParser in particular creates predicate objects (not shown in the diagram) that may be then manipulated (composed, etc.) into another predicate object. This predicate object is then passed to the FindCommand object. The FindCommand object keeps the association to the predicate object.
 
 ### Model component
 **API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
@@ -516,14 +517,14 @@ Use case ends.
 
 Extensions:
 
-2a. Pacebook detects invalid find parameters.<br>
-   2a1. Pacebook displays an error message indicating the invalid parameter(s).<br>
-   2a2. Coach enters new data.<br>
-   Steps 2a1-2a2 are repeated until the parameters are correct.<br>
+- 2a. Pacebook detects invalid find parameters.<br>
+   - **2a1.** Pacebook displays an error message indicating the invalid parameter(s).<br>
+   - **2a2.** Coach enters new data.<br>
+   - Steps 2a1-2a2 are repeated until the parameters are correct.<br>
 Use case resumes from step 3.<br><br>
 
-3a. No matching athlete entries found.<br>
-   3a1. Pacebook displays a message indicating no matching results and no athletes will be listed.<br>
+- 3a. No matching athlete entries found.<br>
+   - **3a1.** Pacebook displays a message indicating no matching results and no athletes will be listed.<br>
 
 **UC9 - Sort Athletes by Personal Best or Name**
 
@@ -532,7 +533,7 @@ Use Case: UC9 - Sort Athletes by Personal Best or Name<br>
 Actor: Coach
 
 MSS:
-1. Coach specifies the field and order for sorting.
+1. Coach specifies the field and order for sorting. If sorting by personal best, the coach also specifies the event distance.
 2. Pacebook checks if the specified sorting criteria are valid 
 3. Pacebook sorts the displayed athlete list based on the specified criteria.
 4. Pacebook displays the sorted athlete list in the main window.<br>
@@ -540,9 +541,9 @@ Use case ends.
 
 Extensions:
 
-2a. Pacebook detects invalid sorting parameters. <br>
-   2a1. Pacebook displays an error message indicating the invalid sorting field or order. <br>
-   2a2. Coach enters new data. <br>
+- 2a. Pacebook detects invalid sorting parameters. <br>
+   - **2a1.** Pacebook displays an error message indicating the invalid sorting field or order. <br>
+   - **2a2.** Coach enters new data. <br>
    Steps 2a1-2a2 are repeated until the sorting parameters are correct. <br>
 Use case resumes from step 2.
 

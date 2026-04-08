@@ -18,6 +18,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.EmergencyContact;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.RunTiming;
 import seedu.address.model.person.StartDate;
 import seedu.address.model.person.availableday.AvailableDay;
 import seedu.address.model.tag.Tag;
@@ -246,5 +247,20 @@ public class ParserUtil {
             throw new ParseException(String.format(
                     SortCommand.MESSAGE_INVALID_SORT_ORDER, sortOrder));
         }
+    }
+
+    /**
+     * Parses a {@code String distance} into a supported run distance.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code distance} is invalid.
+     */
+    public static String parseDistance(String distance) throws ParseException {
+        requireNonNull(distance);
+        String trimmedDistance = distance.trim();
+        if (!RunTiming.isValidDistance(trimmedDistance)) {
+            throw new ParseException(SortCommand.MESSAGE_USAGE);
+        }
+        return trimmedDistance;
     }
 }
