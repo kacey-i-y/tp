@@ -102,11 +102,11 @@ public class SortCommandParser implements Parser<SortCommand> {
         }
 
         if (sortField == SortField.PB && distance == null) {
-            throw new ParseException(MESSAGE_MISSING_DISTANCE_FOR_PB);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
         }
-
+        
         if (sortField != SortField.PB && distance != null) {
-            throw new ParseException(MESSAGE_UNEXPECTED_DISTANCE);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
         }
 
         return new SortCommand(sortField, distance, sortOrder);
