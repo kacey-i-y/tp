@@ -12,88 +12,176 @@ import seedu.address.model.person.RunTiming;
 /**
  * Parses user input arguments and creates an {@link AddTimingCommand}.
  *
- * <p>This parser extracts the athlete index and run timing parameters
- * from the user input. It validates the presence and correctness of
- * required fields before constructing the command.</p>
- *
- * <p>Expected command format:</p>
- * <pre>
- * addtime INDEX dist/DISTANCE min/MINUTES sec/SECONDS
- * </pre>
+ * <p>This parser validates the athlete index, run distance, and timing fields
+ * separately so that users receive more specific and helpful error messages.</p>
  */
 public class AddTimingCommandParser implements Parser<AddTimingCommand> {
+
+    private static final String COMMAND_FORMAT =
+            "Invalid command format: addtiming INDEX dist/DISTANCE min/MINUTES sec/SECONDS";
+
+    private static final String MESSAGE_MISSING_DISTANCE =
+            "Missing required field: dist/DISTANCE\n" + AddTimingCommandParser.COMMAND_FORMAT;
+
+    private static final String MESSAGE_MISSING_MINUTES =
+            "Missing required field: min/MINUTES\n" + AddTimingCommandParser.COMMAND_FORMAT;
+
+    private static final String MESSAGE_MISSING_SECONDS =
+            "Missing required field: sec/SECONDS\n" + AddTimingCommandParser.COMMAND_FORMAT;
+
+    private static final String MESSAGE_INVALID_INDEX =
+            "Invalid index: please provide a positive integer athlete index\n" + AddTimingCommandParser.COMMAND_FORMAT;
+
+    private static final String MESSAGE_INVALID_MINUTES =
+            "Invalid minutes: must be a non-negative integer\n" + AddTimingCommandParser.COMMAND_FORMAT;
+
+    private static final String MESSAGE_INVALID_SECONDS =
+            "Invalid seconds: must be a number from 0 to <60\n" + AddTimingCommandParser.COMMAND_FORMAT;
+
+    private static final String MESSAGE_INVALID_ZERO_TIME =
+            "Invalid timing: total time must be greater than 0\n" + AddTimingCommandParser.COMMAND_FORMAT;
+
+    private static final String MESSAGE_DUPLICATE_FIELDS =
+            "Invalid command: each field (dist/, min/, sec/) can only be provided once\n" + AddTimingCommandParser.COMMAND_FORMAT;
 
     /**
      * Parses the given {@code String} of arguments in the context of the
      * {@code AddTimingCommand} and returns an {@code AddTimingCommand}.
      *
-     * @param args Full command arguments string.
+     * @param args Full user input after the command word.
      * @return A new {@code AddTimingCommand} containing the parsed values.
-     * @throws ParseException If the user input does not conform to the expected format
-     *                        or if the timing values are invalid.
+     * @throws ParseException If the input format or values are invalid.
      */
     @Override
     public AddTimingCommand parse(String args) throws ParseException {
+        ArgumentMultimap map = ArgumentTokenizer.tokenize(args, PREFIX_DISTANCE, PREFIX_MIN, PREFIX_SEC);
 
-        ArgumentMultimap map = ArgumentTokenizer.tokenize(args,
-                PREFIX_DISTANCE, PREFIX_MIN, PREFIX_SEC);
+        validateNoDuplicateFields(map);
+        validateRequiredFields(map);
 
-        // Check duplicate fields
-        map.verifyNoDuplicatePrefixesFor(PREFIX_DISTANCE, PREFIX_MIN, PREFIX_SEC);
+        Index index = parseIndex(map.getPreamble());
+        String distance = parseDistance(map.getValue(PREFIX_DISTANCE).get());
+        int minutes = parseMinutes(map.getValue(PREFIX_MIN).get());
+        double seconds = parseSeconds(map.getValue(PREFIX_SEC).get());
 
-        // Check missing required fields
-        if (map.getValue(PREFIX_DISTANCE).map(String::isBlank).orElse(true)
-                || map.getValue(PREFIX_MIN).map(String::isBlank).orElse(true)
-                || map.getValue(PREFIX_SEC).map(String::isBlank).orElse(true)) {
-            throw new ParseException("Missing required fields: dist/DISTANCE min/MINUTES sec/SECONDS");
-        }
+        validateTotalTime(minutes, seconds);
 
-        Index index;
-        String distance;
-        int minutes;
-        double seconds;
-
-        try {
-            index = ParserUtil.parseIndex(map.getPreamble());
-            distance = map.getValue(PREFIX_DISTANCE).get();
-            minutes = Integer.parseInt(map.getValue(PREFIX_MIN).get());
-            seconds = Double.parseDouble(map.getValue(PREFIX_SEC).get());
-        } catch (Exception e) {
-            throw new ParseException(
-                    "Invalid command format: addtime INDEX dist/DISTANCE min/MINUTES sec/SECONDS");
-        }
-
-        RunTiming timing = getRunTiming(distance, minutes, seconds);
-
+        RunTiming timing = new RunTiming(distance, minutes, seconds);
         return new AddTimingCommand(index, timing);
     }
 
     /**
-     * Validates timing fields and constructs a {@code RunTiming}.
+     * Ensures each supported prefix appears at most once.
      *
-     * @param distance Race distance.
+     * @param map Tokenized user input.
+     * @throws ParseException If any prefix appears more than once.
+     */
+    private void validateNoDuplicateFields(ArgumentMultimap map) throws ParseException {
+        try {
+            map.verifyNoDuplicatePrefixesFor(PREFIX_DISTANCE, PREFIX_MIN, PREFIX_SEC);
+        } catch (ParseException e) {
+            throw new ParseException(MESSAGE_DUPLICATE_FIELDS);
+        }
+    }
+
+    /**
+     * Ensures all required timing fields are present.
+     *
+     * @param map Tokenized user input.
+     * @throws ParseException If any required field is missing.
+     */
+    private void validateRequiredFields(ArgumentMultimap map) throws ParseException {
+        if (map.getValue(PREFIX_DISTANCE).isEmpty()) {
+            throw new ParseException(MESSAGE_MISSING_DISTANCE);
+        }
+
+        if (map.getValue(PREFIX_MIN).isEmpty()) {
+            throw new ParseException(MESSAGE_MISSING_MINUTES);
+        }
+
+        if (map.getValue(PREFIX_SEC).isEmpty()) {
+            throw new ParseException(MESSAGE_MISSING_SECONDS);
+        }
+    }
+
+    /**
+     * Parses and validates the athlete index.
+     *
+     * @param preamble The unprefixed portion of the input.
+     * @return Parsed athlete index.
+     * @throws ParseException If the index is missing or invalid.
+     */
+    private Index parseIndex(String preamble) throws ParseException {
+        try {
+            return ParserUtil.parseIndex(preamble);
+        } catch (ParseException e) {
+            throw new ParseException(MESSAGE_INVALID_INDEX);
+        }
+    }
+
+    /**
+     * Parses and validates the race distance.
+     *
+     * @param rawDistance Raw distance string from user input.
+     * @return Validated distance string.
+     * @throws ParseException If the distance is unsupported.
+     */
+    private String parseDistance(String rawDistance) throws ParseException {
+        if (!RunTiming.isValidDistance(rawDistance)) {
+            throw new ParseException(
+                    "Invalid distance: supported distances are 400m, 2.4km, 10km, and 42km.");
+        }
+        return rawDistance;
+    }
+
+    /**
+     * Parses and validates the minutes component.
+     *
+     * @param rawMinutes Raw minutes string from user input.
+     * @return Parsed minutes value.
+     * @throws ParseException If minutes are not a valid non-negative integer.
+     */
+    private int parseMinutes(String rawMinutes) throws ParseException {
+        try {
+            int minutes = Integer.parseInt(rawMinutes);
+            if (minutes < 0) {
+                throw new ParseException(MESSAGE_INVALID_MINUTES);
+            }
+            return minutes;
+        } catch (NumberFormatException e) {
+            throw new ParseException(MESSAGE_INVALID_MINUTES);
+        }
+    }
+
+    /**
+     * Parses and validates the seconds component.
+     *
+     * @param rawSeconds Raw seconds string from user input.
+     * @return Parsed seconds value.
+     * @throws ParseException If seconds are not within the accepted range.
+     */
+    private double parseSeconds(String rawSeconds) throws ParseException {
+        try {
+            double seconds = Double.parseDouble(rawSeconds);
+            if (seconds < 0 || seconds >= 60) {
+                throw new ParseException(MESSAGE_INVALID_SECONDS);
+            }
+            return seconds;
+        } catch (NumberFormatException e) {
+            throw new ParseException(MESSAGE_INVALID_SECONDS);
+        }
+    }
+
+    /**
+     * Validates that the total timing is greater than zero.
+     *
      * @param minutes Minutes component.
      * @param seconds Seconds component.
-     * @return Valid run timing.
-     * @throws ParseException If any field is invalid.
+     * @throws ParseException If the total time is zero.
      */
-    private static RunTiming getRunTiming(String distance, int minutes, double seconds)
-            throws ParseException {
-        if (!RunTiming.isValidDistance(distance)) {
-            throw new ParseException(RunTiming.MESSAGE_DISTANCE_CONSTRAINTS);
-        }
-
-        if (minutes < 0) {
-            throw new ParseException("Invalid minutes: must be a non-negative integer");
-        }
-
-        if (seconds < 0 || seconds >= 60) {
-            throw new ParseException("Invalid seconds: must be between 0 and 59.99");
-        }
-
+    private void validateTotalTime(int minutes, double seconds) throws ParseException {
         if (minutes == 0 && seconds == 0) {
-            throw new ParseException("Invalid timing: total time must be greater than 0");
+            throw new ParseException(MESSAGE_INVALID_ZERO_TIME);
         }
-        return new RunTiming(distance, minutes, seconds);
     }
 }
