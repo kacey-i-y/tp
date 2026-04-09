@@ -638,7 +638,7 @@ testers are expected to do more *exploratory* testing.
     1. Prerequisites: There are multiple athletes in the addressbook.json.
 
     1. Prerequisites: Use the find command to display a filtered list of athletes, such that the number of athletes in the person list panel is less than the number of athletes in the address book. Refer to the guide on using the find command for detailed instructions on how to use the find instruction. For convenience, here is a sample find command that can be used if using the sample addressbook.json above:
-        `find n/Roy`
+       `find n/Roy`
 
     1. Test case: Follow the instructions for the first test case in the "Adding a valid athlete while all athletes are being shown and there are multiple athletes in Pacebook" above.
 
@@ -649,17 +649,17 @@ testers are expected to do more *exploratory* testing.
 
     1. Prerequisites: List all athlete using the `list` command before starting each test case.
 
-    1. Test case: `add n/Chloe Ong n/Chris Ryan a/17 p/96543210 e/chloe.ong@example.com ad/9 Pasir Ris Drive 6, #07-44 d/08/04/2026 t/relay t/school av/Fri`
+    1. Test case: `add n/Chloe Ong n/Chris Ryan a/17 p/96543210 e/chloe.ong@example.com ad/9 Pasir Ris Drive 6, #07-44 d/08/04/2026 ec/Mother 91234567 t/relay t/school av/Fri`
 
-        Expected: The following should be displayed in the result display in red text colour:
+       Expected: The following should be displayed in the result display in red text colour:
        `Multiple values specified for the following single-valued field(s): n/`
 
-    1. Test case: `add n/Chloe Ong a/17 p/965432100 e/chloe.ong@example.com ad/9 Pasir Ris Drive 6, #07-44 d/08/04/2026 t/relay t/school av/Fri`
+    1. Test case: `add n/Chloe Ong a/17 p/965432100 e/chloe.ong@example.com ad/9 Pasir Ris Drive 6, #07-44 d/08/04/2026 ec/Mother 91234567 t/relay t/school av/Fri`
 
        Expected: The following should be displayed in the result display in red text colour:
        `Phone number must be exactly 8 digits and start with 8 or 9 (e.g. 91234567).`
 
-    1. Test case: `add n/Chloe Ong a/17 p/96543210 e/chloe.ong@ ad/9 Pasir Ris Drive 6, #07-44 d/08/04/2026 t/relay t/school av/Fri`
+    1. Test case: `add n/Chloe Ong a/17 p/96543210 e/chloe.ong@ ad/9 Pasir Ris Drive 6, #07-44 d/08/04/2026 ec/Mother 91234567 t/relay t/school av/Fri`
 
        Expected: The following should be displayed in the result display in red text colour:
        ```text
