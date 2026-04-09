@@ -51,11 +51,11 @@ You do not need to know how to program — just install it once using the links 
 6. Type a command into the command box and press Enter to run it. For example, typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-  * `add n/John Doe a/21 p/98765432 e/johnd@example.com ad/John street, block 123, #01-01 d/01/01/2001` : Adds an athlete named `John Doe` to Pacebook.
+* `add n/John Doe a/21 p/98765432 e/johnd@example.com ad/John street, block 123, #01-01 d/01/01/2001 ec/Father 91234567` : Adds an athlete named `John Doe` to Pacebook.
 
-  * `find n/Alex`: Finds an athlete named Alex.
+* `find n/Alex`: Finds an athlete named Alex.
 
-  * `exit` : Exits the app.
+* `exit` : Exits the app.
   See the [Features](#features) section below for the full list of commands and how to use them.
 
 -------------------------------------------------------------------------------------------------------------------
@@ -147,7 +147,7 @@ Format: `add n/NAME a/AGE p/PHONE e/EMAIL ad/ADDRESS d/START_DATE ec/EMERGENCY_C
 
 Example:
 * A new sprinter joins your team A after the open trial session:
-  * `add n/Sarah Tan a/24 p/91234567 e/sarah.tan@email.com ad/Blk 12 Jurong West Ave 1, #05-12 d/01/04/2025 ec/Jane Doe 81234567 t/sprinter t/teamA`
+  * `add n/Sarah Tan a/24 p/91234567 e/sarah.tan@email.com ad/Blk 12 Jurong West Ave 1, #05-12 d/01/04/2025 ec/Mother 91234567 t/sprinter t/teamA`
 
 <div markdown="block" class="alert alert-primary">:bulb: **Tips:**
 
@@ -155,7 +155,7 @@ Example:
 - `AGE` must be a number between 10-99.
 - `PHONE` must be a valid Singapore phone number (i.e. 8 digits, starts with 8 or 9).
 - `EMAIL` must be a valid email, i.e. email@domain.
-- `EMERGENCY_CONTACT` must be provided. It can be any non-blank text, e.g. a name and number like `Jane Doe 91234567`.
+- `EMERGENCY_CONTACT` must follow the format `Relationship Phone`, where `Phone` is a valid Singapore phone number.
 - Avoid using vague names such as `John` if you coach multiple athletes with similar names.
 </div>
 
@@ -566,8 +566,8 @@ Furthermore, certain edits can cause Pacebook to behave in unexpected ways if va
 
 | Action             | Format, Examples                                                                                                                                                                                                                       |
 |--------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add Athlete**    | `add n/NAME a/AGE p/PHONE e/EMAIL ad/ADDRESS d/START_DATE ec/EMERGENCY_CONTACT [t/TAG]… [av/AVAILABLE_DAY]…​` <br> e.g., `add n/Sarah Tan a/24 p/91234567 e/sarah.tan@email.com ad/Blk 12 Jurong West Ave 1, #05-12 d/01/04/2025 ec/Jane Doe 81234567 t/sprinter t/teamA` |
-| **Edit**           | `edit INDEX [n/NAME] [a/AGE] [p/PHONE] [e/EMAIL] [ad/ADDRESS] [d/START_DATE] [ec/EMERGENCY_CONTACT] [t/TAG]… [av/AVAILABLE_DAY]…​`<br> e.g., `edit 1 n/Marcus Lim e/marcus@email.com`                                                   |
+| **Add Athlete**    | `add n/NAME a/AGE p/PHONE e/EMAIL ad/ADDRESS d/START_DATE ec/EMERGENCY_CONTACT [t/TAG]… [av/AVAILABLE_DAY]…​` <br> e.g., `add n/Sarah Tan a/24 p/91234567 e/sarah.tan@email.com ad/Blk 12 Jurong West Ave 1, #05-12 d/01/04/2025 ec/Mother 91234567 t/sprinter t/teamA` |
+| **Edit**           | `edit INDEX [n/NAME] [a/AGE] [p/PHONE] [e/EMAIL] [ad/ADDRESS] [d/START_DATE] [ec/EMERGENCY_CONTACT] [t/TAG]… [av/AVAILABLE_DAY]…​`<br> e.g., `edit 1 ec/Father 92345678`                                                   |
 | **Find**           | `find [n/NAME] [p/PHONE] [t/TAG] [av/AVAILABLE_DAY]`<br> e.g., `find n/Sarah t/sprinter`                                                                                                                                               |
 | **List**           | `list`                                                                                                                                                                                                                                 |
 | **Sort**           | `sort by/FIELD [dist/DISTANCE] [ord/ORDER]` <br> e.g., `sort by/pb dist/400m ord/desc`                                                                                                                                                |

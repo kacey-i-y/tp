@@ -13,9 +13,13 @@ import java.util.regex.Pattern;
 public class EmergencyContact {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Emergency contact must include both a relationship and a valid phone number, "
-                    + "in the format 'Relationship Phone' "
+            "Emergency contact must include a relationship followed by a valid Singapore phone number. "
+                    + "The phone number must be exactly 8 digits and start with 8 or 9, "
+                    + "and the full value must be in the format 'Relationship Phone' "
                     + "(e.g. 'Mother 91234567').";
+
+    public static final String MESSAGE_EMPTY_EMERGENCY_CONTACT =
+            "Emergency contact cannot be blank.";
 
     public static final String VALIDATION_REGEX =
             "^([A-Za-z][A-Za-z\\s'/-]*)\\s+([89]\\d{3}\\s?\\d{4})$";
