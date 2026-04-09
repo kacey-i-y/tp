@@ -18,7 +18,7 @@ import seedu.address.model.person.RunTiming;
 public class AddTimingCommandParser implements Parser<AddTimingCommand> {
 
     private static final String COMMAND_FORMAT =
-            "Invalid command format: addtiming INDEX dist/DISTANCE min/MINUTES sec/SECONDS";
+            "Correct command format: addtime INDEX dist/DISTANCE min/MINUTES sec/SECONDS";
 
     private static final String MESSAGE_MISSING_DISTANCE =
             "Missing required field: dist/DISTANCE\n" + AddTimingCommandParser.COMMAND_FORMAT;
