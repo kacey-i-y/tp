@@ -25,6 +25,7 @@ public class PersonBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_EMERGENCY_CONTACT = "Mother 91234567";
     public static final String DEFAULT_START_DATE = "01/01/2001";
 
     private Name name;
@@ -48,7 +49,7 @@ public class PersonBuilder {
         address = new Address(DEFAULT_ADDRESS);
         startDate = new StartDate(DEFAULT_START_DATE);
         tags = new HashSet<>();
-        emergencyContact = new EmergencyContact("N/A");
+        emergencyContact = new EmergencyContact(DEFAULT_EMERGENCY_CONTACT);
         availableDays = new HashSet<>();
     }
 
@@ -64,7 +65,7 @@ public class PersonBuilder {
         startDate = personToCopy.getStartDate();
         tags = new HashSet<>(personToCopy.getTags());
         emergencyContact = personToCopy.getEmergencyContact();
-        availableDays = personToCopy.getAvailableDays();
+        availableDays = new HashSet<>(personToCopy.getAvailableDays());
     }
 
     /**
@@ -84,17 +85,18 @@ public class PersonBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
+     * Parses the {@code tags} into a {@code Set<Tag>} and sets it to the {@code Person} that we are building.
      */
-    public PersonBuilder withTags(String ... tags) {
+    public PersonBuilder withTags(String... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
+     * Parses the {@code availableDays} into a {@code Set<AvailableDay>} and sets it to the
+     * {@code Person} that we are building.
      */
-    public PersonBuilder withAvailableDays(String ... availableDays) {
+    public PersonBuilder withAvailableDays(String... availableDays) {
         this.availableDays = SampleDataUtil.getAvailableDaySet(availableDays);
         return this;
     }
@@ -142,5 +144,4 @@ public class PersonBuilder {
     public Person build() {
         return new Person(name, age, phone, email, address, emergencyContact, startDate, tags, availableDays);
     }
-
 }

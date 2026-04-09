@@ -29,7 +29,7 @@ public class JsonAdaptedPersonTest {
     private static final String INVALID_START_DATE = "30/02/2026";
     private static final String INVALID_TAG = "#friend";
     private static final String INVALID_AVAILABLE_DAY = "Day";
-    private static final String INVALID_EMERGENCY_CONTACT = " ";
+    private static final String INVALID_EMERGENCY_CONTACT = "Mother 12345678";
 
     private static final String VALID_NAME = BENSON.getName().toString();
     private static final String VALID_AGE = BENSON.getAge().toString();
@@ -204,5 +204,4 @@ public class JsonAdaptedPersonTest {
                 EmergencyContact.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
-
 }
