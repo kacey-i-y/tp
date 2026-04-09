@@ -91,7 +91,40 @@ public class EditCommand extends Command {
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson)));
+        return new CommandResult(formatAthleteMessage(editedPerson));
+    }
+
+    /**
+     * Returns a formatted success message for the specified {@code Person}.
+     *
+     * @param athlete The athlete whose details are to be included in the success message.
+     * @return A formatted success message containing the athlete's details.
+     */
+    public static String formatAthleteMessage(Person athlete) {
+        String tags = athlete.getTags().isEmpty() ? "-" : athlete.getTags().toString();
+        String availableDays = athlete.getAvailableDays().isEmpty() ? "-" : athlete.getAvailableDays().toString();
+
+        return String.format(
+                "Athlete edited:%n"
+                        + "  Name: %s%n"
+                        + "  Age: %s%n"
+                        + "  Phone: %s%n"
+                        + "  Email: %s%n"
+                        + "  Address: %s%n"
+                        + "  Emergency Contact: %s%n"
+                        + "  Start Date: %s%n"
+                        + "  Tags: %s%n"
+                        + "  Available Days: %s",
+                athlete.getName(),
+                athlete.getAge(),
+                athlete.getPhone(),
+                athlete.getEmail(),
+                athlete.getAddress(),
+                athlete.getEmergencyContact(),
+                athlete.getStartDate(),
+                tags,
+                availableDays
+        );
     }
 
     /**
