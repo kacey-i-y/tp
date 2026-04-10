@@ -515,7 +515,6 @@ Given below are instructions to test the app manually.
 >
 > **Note:** For standardised testing that requires multiple athletes to be recorded in Pacebook as a prerequisite, the tester may use their own list of athletes or use the sample below for convenience by copying it and overwriting their `addressbook.json` with it.
 
-
 Sample `addressbook.json`:
 
 ```json
