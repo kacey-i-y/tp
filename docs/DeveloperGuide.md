@@ -575,8 +575,6 @@ Sample `addressbook.json`:
     1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
-
 ### Listing all athletes
 1. Viewing all the athletes in Pacebook while the address book is empty:
 
@@ -685,7 +683,7 @@ Sample `addressbook.json`:
 1. Editing an athlete at a valid index with valid format when all persons are being shown
     1. Prerequisites: List all athlete using the `list` command before starting each test case.
 
-    1. Test case: `edit 3 n/Lucas Tan a/21 p/91234567 e/lucas.tan@example.com ad/31 Serangoon North Ave 4 ec/Father 92345678 d/15/02/2024 t/teamB`
+    1. Test case: `edit 3 n/Lucas Tan a/21 p/91234567 e/lucas.tan@example.com ad/31 Serangoon North Ave 4 ec/Father 92345678 d/15/02/2024 ta/teamB`
 
        Expected: The following should be displayed in the result panel:
        ```Edited Person: Muhammad Irfan Khan; Age: 25; Phone: 92345678; Email: muhammad.irfan.khan@example.com; Address: 12 Tampines Street 82, #11-03; Emergency Contact: Mother 91234567; Start Date: 01/07/2023; Tags: [marathon][teamB]```
@@ -694,7 +692,7 @@ Sample `addressbook.json`:
 1. Editing an athlete at a valid index with valid format when only one person is being shown
     1. Prerequisites: Find a single athlete to display on the person list panel using the find command. If using the addressbook.json sample above, run `find n/Lucas`
 
-    1. Test case: `edit 1 n/Lucas Tan a/21 p/91234567 e/lucas.tan@example.com ad/31 Serangoon North Ave 4 ec/Father 92345678 d/15/02/2024 t/teamB`
+    1. Test case: `edit 1 n/Lucas Tan a/21 p/91234567 e/lucas.tan@example.com ad/31 Serangoon North Ave 4 ec/Father 92345678 d/15/02/2024 ta/teamB`
 
        Expected: The following should be displayed in the result panel:
        `Edited Person: Lucas Tan; Age: 21; Phone: 91234567; Email: lucas.tan@example.com; Address: 31 Serangoon North Ave 4; Emergency Contact: Father 92345678; Start Date: 15/02/2024; Tags: [teamB]`
@@ -706,7 +704,7 @@ Sample `addressbook.json`:
 2. Editing an athlete with invalid format when all athletes are displayed
     1. Prerequisites: List all athlete using the `list` command
 
-    1. Test case: `edit 1 n/Lucas Tan a/21 p/9123 e/lucas.tan@example.com ad/31 Serangoon North Ave 4 ec/Father 92345678 d/15/02/2024 t/teamB`
+    1. Test case: `edit 1 n/Lucas Tan a/21 p/9123 e/lucas.tan@example.com ad/31 Serangoon North Ave 4 ec/Father 92345678 d/15/02/2024 ta/teamB`
 
        Expected: The following should be displayed in the result panel:
        `Phone number must be exactly 8 digits and start with 8 or 9 (e.g. 91234567).`
@@ -727,7 +725,7 @@ Sample `addressbook.json`:
     1. Prerequisites: List all athletes using the 'list' command.
 
     1. Test case: Enter a negative index:
-       `edit -1 n/Lucas Tan a/21 p/91234567 e/lucas.tan@example.com ad/31 Serangoon North Ave 4 ec/Father 92345678 d/15/02/2024 t/teamB`
+       `edit -1 n/Lucas Tan a/21 p/91234567 e/lucas.tan@example.com ad/31 Serangoon North Ave 4 ec/Father 92345678 d/15/02/2024 ta/teamB`
 
        Expected: The following error message should be displayed in the result display:
        ```
@@ -738,7 +736,7 @@ Sample `addressbook.json`:
        ```
 
     1. Test case: Enter an index larger than the index of the last athlete in the person display list. If using the addressbook.json sample:
-       `edit 4 n/Lucas Tan a/21 p/91234567 e/lucas.tan@example.com ad/31 Serangoon North Ave 4 ec/Father 92345678 d/15/02/2024 t/teamB`
+       `edit 4 n/Lucas Tan a/21 p/91234567 e/lucas.tan@example.com ad/31 Serangoon North Ave 4 ec/Father 92345678 d/15/02/2024 ta/teamB`
 
        Expected: The following error message should be displayed in the result display:
        ```
@@ -1274,21 +1272,35 @@ Expected: The result display should display number of persons listed.
 
 2. Sorting by PB (Personal Best)
     1. Sort ascending
-       Test case:
-       Expected:
+       Test case: `sort by/pb dist/2.4km ord/asc`
+       Expected: The list of athletes is sorted by their personal best 2.4 km time in ascending order (fastest at the top). Athletes with no recorded 2.4 km timings appear at the bottom.
+       Expected: The following success message should be displayed in the result display:
+       `Sorted athletes by personal best for 2.4km in ascending order.`
 
     2. Sort descending
-       Test case:
-       Expected:
+       Test case: `sort by/pb dist/2.4km ord/desc`
+       Expected: The list of athletes is sorted by their personal best 2.4 km time in descending order (slowest at the top). Athletes with no recorded 2.4 km timings appear at the bottom.
+       Expected: The following success message should be displayed in the result display:
+       `Sorted athletes by personal best for 2.4km in descending order.`
 
 
 2. Sorting using invalid distance field
-    1. Test case:
-       Expected:
+    1. Test case: `sort by/pb dist/100m ord/asc`
+       Expected: The following error message should be displayed in the result display:
+       ```
+       Invalid value for dist/
+       Supported distances: 400m, 2.4km, 10km, 42km
+       Example: sort by/pb dist/2.4km ord/asc
+       ```
 
 2. Sorting using invalid order field
     1. Test case: `sort by/pb ord/asdf`
-       Expected:
+       Expected: The following error message should be displayed in the result display:
+       ```
+       Invalid value for ord/
+       Supported orders: asc, desc
+       Example: sort by/name ord/desc
+       ```
 
 
 ### Clear Pacebook's address book
@@ -1362,4 +1374,3 @@ Expected: The result display should display number of persons listed.
 
     1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
-1. _{ more test cases …​ }_
