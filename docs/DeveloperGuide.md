@@ -713,7 +713,7 @@ Sample `addressbook.json`:
        ```
        Invalid command format!
        edit: Edits the details of the person identified by the index number used in the displayed person list. Existing values will be overwritten by the input values.
-       parameters: INDEX (must be a positive integer) [n/NAME] [p/PHONE] [e/EMAIL] [ad/ADDRESS] [ec/EMERGENCY_CONTACT] [t/TAG]...
+       Parameters: INDEX (must be a positive integer) [n/NAME] [p/PHONE] [e/EMAIL] [ad/ADDRESS] [ec/EMERGENCY_CONTACT] [ta/TAG]... [td/TAG]... [av/AVAILABLE_DAY]...
        Example: edit 1 p/91234567 e/johndoe@example.com
        ```
 
@@ -1315,9 +1315,9 @@ Expected: The result display should display number of persons listed.
         addtime       INDEX dist/DISTANCE min/MINUTES sec/SECONDS
         del           INDEX
         deltime       ATHLETE_INDEX TIMING_INDEX
-        edit          INDEX [n/NAME] [a/AGE] [p/PHONE] [e/EMAIL] [ad/ADDRESS] [d/START_DATE] [ec/EMERGENCY_CONTACT] [t/TAG]... [av/AVAILABLE_DAY]...
-        find          [n/KEYWORD] [p/PHONE] [t/TAG]... [av/AVAILABLE_DAY]...
-        sort          by/FIELD [dist/DISTANCE] [ord/ORDER]
+        edit          INDEX [n/NAME] [a/AGE] [p/PHONE] [e/EMAIL] [ad/ADDRESS] [ec/EMERGENCY_CONTACT] [d/START_DATE] [ta/TAG]... [td/TAG]... [av/AVAILABLE_DAY]...
+        find          [n/NAME]... [p/PHONE]... [t/TAG]... [av/AVAILABLE_DAY]...
+        sort          by/FIELD [ord/ORDER]   (fields: name, pb  |  orders: asc, desc)
         view          INDEX
         list
         clear
