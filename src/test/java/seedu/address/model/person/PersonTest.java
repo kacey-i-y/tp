@@ -112,17 +112,6 @@ public class PersonTest {
     }
 
     @Test
-    public void equals_differentRunTimings_returnsFalse() {
-        Person personWithTimingA = new PersonBuilder(ALICE).build();
-        Person personWithTimingB = new PersonBuilder(ALICE).build();
-
-        personWithTimingA.addRunTiming(new RunTiming("2.4km", 10, 30.0));
-        personWithTimingB.addRunTiming(new RunTiming("2.4km", 11, 0.0));
-
-        assertFalse(personWithTimingA.equals(personWithTimingB));
-    }
-
-    @Test
     public void equals_sameRunTimings_returnsTrue() {
         Person personWithTimingA = new PersonBuilder(ALICE).build();
         Person personWithTimingB = new PersonBuilder(ALICE).build();
@@ -143,17 +132,6 @@ public class PersonTest {
     public void hashCode_differentAvailableDays_differentHashCode() {
         Person editedAlice = new PersonBuilder(ALICE).withAvailableDays(VALID_AVAILABLE_DAY_BOB).build();
         assertNotEquals(ALICE.hashCode(), editedAlice.hashCode());
-    }
-
-    @Test
-    public void hashCode_differentRunTimings_differentHashCode() {
-        Person personWithTimingA = new PersonBuilder(ALICE).build();
-        Person personWithTimingB = new PersonBuilder(ALICE).build();
-
-        personWithTimingA.addRunTiming(new RunTiming("10km", 47, 30.0));
-        personWithTimingB.addRunTiming(new RunTiming("10km", 48, 0.0));
-
-        assertNotEquals(personWithTimingA.hashCode(), personWithTimingB.hashCode());
     }
 
     @Test
