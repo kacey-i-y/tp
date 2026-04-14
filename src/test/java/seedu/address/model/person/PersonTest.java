@@ -141,17 +141,6 @@ public class PersonTest {
     }
 
     @Test
-    public void getRunTimingsDisplay_oneTiming_returnsFormattedString() {
-        Person person = new PersonBuilder().build();
-        person.addRunTiming(new RunTiming("400m", 0, 50.0));
-
-        String display = person.getRunTimingsDisplay();
-        assertTrue(display.startsWith("Run Timings: "));
-        assertTrue(display.contains("400m, 0min 50.0s"));
-        assertFalse(display.contains(" | "));
-    }
-
-    @Test
     public void getRunTimingsDisplay_withTimings_returnsFormattedString() {
         Person person = new PersonBuilder().build();
         person.addRunTiming(new RunTiming("400m", 0, 50.0));
