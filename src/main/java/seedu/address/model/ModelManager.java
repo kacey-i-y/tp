@@ -23,6 +23,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private Comparator<Person> currentSortComparator = null;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -132,7 +133,15 @@ public class ModelManager implements Model {
     @Override
     public void sortFilteredPersonList(Comparator<Person> comparator) {
         requireNonNull(comparator);
+        currentSortComparator = comparator;
         addressBook.sortPersonList(comparator);
+    }
+
+    @Override
+    public void reapplyCurrentSort() {
+        if (currentSortComparator != null) {
+            addressBook.sortPersonList(currentSortComparator);
+        }
     }
 
     @Override
