@@ -158,6 +158,7 @@ Example:
 - `EMAIL` must be a valid email, i.e. email@domain.
 - `EMERGENCY_CONTACT` must follow the format `Relationship Phone`, where `Phone` is a valid Singapore phone number.
 - Avoid using vague names such as `John` if you coach multiple athletes with similar names.
+- `TAG` may contain hyphens (e.g. `cross-country`, `u-20`), but must start and end with an alphanumeric character.
 </div>
 
 <div markdown="block" class="alert alert-warning">:exclamation: **Caution:**
